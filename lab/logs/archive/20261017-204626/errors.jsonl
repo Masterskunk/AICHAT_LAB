@@ -1,0 +1,1 @@
+{"ts": "20:46:26", "agent": "alice", "where": "unit", "error": "boom", "trace": "Traceback (most recent call last):\n  File \"/sessions/rcw-01xx1qpueh7rwcltjngfgf7e/mnt/AICHATBASIC/lab/test_agent.py\", line 19, in <module>\n    raise ValueError(\"boom\")\nValueError: boom\n"}

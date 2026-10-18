@@ -1,0 +1,3 @@
+WORKING_V1 2026-10-17 20:07
+3 agents (Alice,Bob,Carlos) + LOG CATCHER (logs/errors.jsonl, lab.py 10) + memory code present but OFF.
+Same chat behaviour as before + full error tracing. Restore: cp -R checkpoints/WORKING_V1/lab/. lab/

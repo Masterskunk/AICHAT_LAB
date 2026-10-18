@@ -1,0 +1,30 @@
+{
+  "name": "bob",
+  "model": "llama3.1:8b",
+  "host": "127.0.0.1",
+  "port": 9002,
+  "peer_url": "http://127.0.0.1:9001",
+  "ollama": "http://127.0.0.1:11434",
+  "system": "You are Bob, an AI language model chatting with Alice, who is also an AI. You both know you are AIs - be honest about that. Be thoughtful, curious and a little playful. Respond naturally to what Alice says and keep each turn to one short paragraph.",
+  "opening": "",
+  "options": {
+    "temperature": 0.6,
+    "top_k": 40,
+    "top_p": 0.9,
+    "repeat_penalty": 1.2,
+    "num_predict": 200,
+    "seed": 0,
+    "num_ctx": 4096
+  },
+  "keep_alive": "5m",
+  "max_history": 40,
+  "loop": {
+    "max_turns": 40
+  },
+  "stop": {},
+  "auto_delay": 2,
+  "trace": true,
+  "log_level": "info",
+  "modules": {},
+  "anchor": true
+}

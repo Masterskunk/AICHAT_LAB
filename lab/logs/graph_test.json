@@ -1,0 +1,20 @@
+{
+  "nodes": [
+    "homomorphic_encryption",
+    "misaligned_voting",
+    "private_collaboration",
+    "reputation_system"
+  ],
+  "edges": [
+    {
+      "s": "homomorphic_encryption",
+      "rel": "enables",
+      "o": "private_collaboration"
+    },
+    {
+      "s": "reputation_system",
+      "rel": "mitigates",
+      "o": "misaligned_voting"
+    }
+  ]
+}

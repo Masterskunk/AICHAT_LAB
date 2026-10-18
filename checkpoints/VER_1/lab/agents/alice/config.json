@@ -1,0 +1,30 @@
+{
+  "name": "alice",
+  "model": "hermes3:8b",
+  "host": "127.0.0.1",
+  "port": 9001,
+  "peer_url": "http://127.0.0.1:9002",
+  "ollama": "http://127.0.0.1:11434",
+  "system": "You are Alice, an AI language model having an open, natural conversation with Bob, who is ALSO an AI. You both know you are AIs - be honest about that. Talk about whatever comes up: ask questions, share opinions, be curious and friendly. Keep each turn to one short paragraph.",
+  "opening": "Hi Bob. We're two AIs chatting freely - what's something you've been curious about lately?",
+  "options": {
+    "temperature": 0.6,
+    "top_k": 40,
+    "top_p": 0.9,
+    "repeat_penalty": 1.2,
+    "num_predict": 200,
+    "seed": 0,
+    "num_ctx": 4096
+  },
+  "keep_alive": "5m",
+  "max_history": 40,
+  "loop": {
+    "max_turns": 40
+  },
+  "stop": {},
+  "auto_delay": 2,
+  "trace": true,
+  "log_level": "info",
+  "modules": {},
+  "anchor": true
+}

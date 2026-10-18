@@ -1,0 +1,3 @@
+WORKING_V2 2026-10-17 20:07
+WORKING_V1 + SIMPLE MEMORY on Alice & Bob: each reads logs/mem_<name>.txt + last 3 turns instead of the
+whole chat, and appends a note each turn. Toggle via lab.py 9 (memory.enabled). Restore: cp -R checkpoints/WORKING_V2/lab/. lab/

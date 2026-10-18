@@ -1,0 +1,5 @@
+VER_1  2026-10-17 19:54
+AI-to-AI free chat: 3 agents (Alice,Bob chatters + Carlos director/judge), anchor toggle,
+live control channel (pause/continue/stop/inject), full lab.py console (configure any field).
+WORKS: chat, Carlos auto-direct, human control, offline tests pass.
+Restore: cp -R checkpoints/VER_1/lab/. lab/ then recreate venvs.

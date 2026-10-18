@@ -1,0 +1,6 @@
+# machine-specific / generated - never upload these
+**/.venv/
+__pycache__/
+*.pyc
+.DS_Store
+*.bak
