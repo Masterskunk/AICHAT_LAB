@@ -50,3 +50,22 @@ Shared graph memory (#1) -> reputation (#2) -> consensus (#3) -> ledger (#4).
 ## META-NOTE
 The agents re-derived reputation/trust/suspicion repeatedly - a strong signal that
 "shared graph + reputation" is the natural, compelling next build for the lab.
+
+## 8. LAN GRAPH-READER / "SCHOLAR" AGENT  (Carlos's idea, 2026-10-18)
+Store every graph the agents generate, then run a SEPARATE agent on another LAN machine
+(Pi / Windows) that READS those graphs and learns from them - without being in the chat.
+
+How it maps to the lab (all config-driven, same engine):
+1. STORE: Carlos already writes graph.json per session (step 2). Keep a history:
+   logs/graphs/graph_<date>.json, plus a merged logs/graph.json (the collective knowledge).
+2. SERVE over LAN: one agent exposes the graph over HTTP - add a GET /graph route to the
+   listen server (or publish graph.json to a shared folder / the GitHub repo).
+3. READER agent (new, e.g. "scholar") on another machine: its config peer points at the
+   graph host; before answering it fetches the graph and injects recall() as grounding -
+   so it "learns from the others" by reusing their established facts. Portability = config
+   only (host/url), exactly our rule.
+4. SCALE (later): put the shared graph in a real DB (Neo4j/Qdrant) provisioned by Tofu so
+   many machines read/write at once. This is the Level-3 bridge to the Terraform track.
+
+Ties together: shared graph memory (#1), A2A messaging, portability (Mac->Pi->Windows),
+and the Terraform/DB deployment track. A clean capstone for the lab.
