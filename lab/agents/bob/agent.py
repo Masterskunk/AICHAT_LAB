@@ -73,8 +73,18 @@ ANCHOR=" Have a GROUNDED, specific conversation. Each turn make ONE concrete poi
 def build_system(c):
     s=c["system"].replace("{secret}",str(c.get("secret","")))
     return s+ANCHOR if c.get("anchor") else s
+def _fmt_edges(edges,k):
+    return "\n".join(f'{e.get("s","")} {e.get("rel","")} {e.get("o","")}' for e in edges[:k])
+def graph_recall(c):
+    gr=c.get("graph_recall") or {}
+    if not gr.get("enabled"): return ""
+    try: g=json.loads((LOGS/"graph.json").read_text())
+    except Exception: return ""
+    return _fmt_edges(g.get("edges",[]), int(gr.get("k",12)))
 def build_messages(c,history):
     msgs=[{"role":"system","content":build_system(c)}]; mem=c.get("memory") or {}
+    gk=graph_recall(c)
+    if gk: msgs.append({"role":"system","content":"SHARED KNOWLEDGE already established (build on it, add something NEW, do not re-explain it):\n"+gk})
     if mem.get("enabled"):
         notes=mem_read(c)
         if notes: msgs.append({"role":"system","content":"POINTS YOU HAVE ALREADY MADE (do NOT repeat these - each turn add a NEW idea, question, example or disagreement that moves the conversation forward):\n"+notes})

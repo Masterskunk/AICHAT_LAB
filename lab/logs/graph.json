@@ -1,45 +1,85 @@
 {
   "nodes": [
+    "12-fn console",
+    "12.7",
+    "AI memory enhancements",
+    "API",
+    "Cypher pattern matching queries",
     "Suggestion Insights",
     "abstract nodes",
     "adjustable edge weights",
     "ai memory",
+    "applied to labels",
+    "areas",
     "as feedback loop",
     "as interconnected nodes and edges",
     "between ideas",
+    "capabilities",
+    "car",
     "color-coded nodes",
     "complex relationships",
     "complex relationships poorly",
+    "concept",
     "concept of ontologies",
+    "concepts",
+    "connected to property keys",
+    "context",
+    "continuous improvement",
+    "conversation history",
+    "conversations",
+    "cross-domain hierarchies",
+    "current interactions dynamically",
+    "darwin",
+    "darwin/arm64",
     "data",
+    "domain",
     "domain-specific categories",
     "dynamic graph view",
+    "dynamic querying",
     "edges",
     "embedded visualizations",
     "enhance user understanding",
     "explanations",
+    "flat representations",
     "for each subcategory",
     "for improving memory",
     "force-directed graph visualizations",
     "general semantic categories",
+    "graph connections",
     "graph database",
+    "graph database query languages",
     "graph databases",
     "graph structure",
+    "graph structures",
+    "graph theory basics",
     "graphs",
     "great approach",
     "guidance",
     "guide",
+    "hermes3:8b",
+    "hierarchical representations",
+    "humans",
     "identify preferred areas",
+    "improvements",
     "individual concepts",
+    "integrating concepts",
     "interactive graph visualization",
     "interactive graphs",
     "interconnected nodes",
     "interconnected nodes and edges",
+    "isUnique property",
     "knowledge",
     "knowledge base",
     "knowledge graph",
     "knowledge representation",
+    "knowledge structure",
+    "labels",
     "less effective for complex relationships",
+    "live judge",
+    "logic and inferences",
+    "meta-AI model",
+    "meta-model",
+    "mistakes",
     "multiple synonyms",
     "narrative perspective",
     "node insights",
@@ -49,20 +89,33 @@
     "one domain",
     "ontologies",
     "ontology",
+    "parent of",
     "patterns",
+    "property keys",
+    "python",
+    "python=3.12.7",
+    "query performance",
+    "related discussions",
     "relationships",
     "relevant information",
+    "repetition fixes",
     "semantic connections",
+    "separate concept/subconcept nodes",
     "separate nodes",
+    "shared",
+    "subconcept",
+    "subdomain",
     "system",
     "traditional tables",
     "transparency",
     "type of database",
+    "unique values",
     "user behavior",
     "user confidence",
     "users",
     "visualization data",
-    "visualizations"
+    "visualizations",
+    "working_v3"
   ],
   "edges": [
     {
@@ -254,6 +307,221 @@
       "s": "visualization data",
       "rel": "can be used",
       "o": "as feedback loop"
+    },
+    {
+      "s": "hermes3:8b",
+      "rel": "uses",
+      "o": "python=3.12.7"
+    },
+    {
+      "s": "hermes3:8b",
+      "rel": "runs",
+      "o": "darwin/arm64"
+    },
+    {
+      "s": "hermes3:8b",
+      "rel": "version",
+      "o": "working_v3"
+    },
+    {
+      "s": "darwin/arm64",
+      "rel": "platform",
+      "o": "darwin"
+    },
+    {
+      "s": "python",
+      "rel": "version",
+      "o": "12.7"
+    },
+    {
+      "s": "knowledge graph",
+      "rel": "report",
+      "o": "car"
+    },
+    {
+      "s": "capabilities",
+      "rel": "include",
+      "o": "knowledge graph"
+    },
+    {
+      "s": "capabilities",
+      "rel": "include",
+      "o": "live judge"
+    },
+    {
+      "s": "capabilities",
+      "rel": "include",
+      "o": "repetition fixes"
+    },
+    {
+      "s": "capabilities",
+      "rel": "include",
+      "o": "12-fn console"
+    },
+    {
+      "s": "graph databases",
+      "rel": "can be used for",
+      "o": "dynamic querying"
+    },
+    {
+      "s": "conversations",
+      "rel": "can be represented as",
+      "o": "graph structures"
+    },
+    {
+      "s": "graph theory basics",
+      "rel": "applies to",
+      "o": "AI memory enhancements"
+    },
+    {
+      "s": "graph databases",
+      "rel": "enable",
+      "o": "dynamic querying"
+    },
+    {
+      "s": "graph connections",
+      "rel": "traverse",
+      "o": "Cypher pattern matching queries"
+    },
+    {
+      "s": "conversation history",
+      "rel": "link",
+      "o": "related discussions"
+    },
+    {
+      "s": "context",
+      "rel": "bring",
+      "o": "current interactions dynamically"
+    },
+    {
+      "s": "knowledge graph",
+      "rel": "contains",
+      "o": "nodes"
+    },
+    {
+      "s": "nodes",
+      "rel": "represent",
+      "o": "concepts"
+    },
+    {
+      "s": "relationships",
+      "rel": "connect",
+      "o": "nodes"
+    },
+    {
+      "s": "property keys",
+      "rel": "describe",
+      "o": "nodes"
+    },
+    {
+      "s": "labels",
+      "rel": "categorize",
+      "o": "nodes"
+    },
+    {
+      "s": "conversation history",
+      "rel": "enables",
+      "o": "dynamic querying"
+    },
+    {
+      "s": "knowledge structure",
+      "rel": "query",
+      "o": "graph database query languages"
+    },
+    {
+      "s": "API",
+      "rel": "exposes",
+      "o": "shared"
+    },
+    {
+      "s": "property keys",
+      "rel": "have",
+      "o": "unique values"
+    },
+    {
+      "s": "property keys",
+      "rel": "are",
+      "o": "applied to labels"
+    },
+    {
+      "s": "property keys",
+      "rel": "have",
+      "o": "isUnique property"
+    },
+    {
+      "s": "labels",
+      "rel": "are",
+      "o": "connected to property keys"
+    },
+    {
+      "s": "meta-AI model",
+      "rel": "enables",
+      "o": "continuous improvement"
+    },
+    {
+      "s": "logic and inferences",
+      "rel": "fall short",
+      "o": "areas"
+    },
+    {
+      "s": "humans",
+      "rel": "learn from",
+      "o": "mistakes"
+    },
+    {
+      "s": "meta-model",
+      "rel": "suggests",
+      "o": "improvements"
+    },
+    {
+      "s": "knowledge graph",
+      "rel": "has",
+      "o": "domain"
+    },
+    {
+      "s": "domain",
+      "rel": "has",
+      "o": "subdomain"
+    },
+    {
+      "s": "concept",
+      "rel": "has",
+      "o": "subconcept"
+    },
+    {
+      "s": "subconcept",
+      "rel": "is",
+      "o": "parent of"
+    },
+    {
+      "s": "concept",
+      "rel": "HAS_SUBCONCEPT",
+      "o": "subconcept"
+    },
+    {
+      "s": "domain",
+      "rel": "HAS_CONCEPT",
+      "o": "concept"
+    },
+    {
+      "s": "hierarchical representations",
+      "rel": "impact",
+      "o": "query performance"
+    },
+    {
+      "s": "flat representations",
+      "rel": "impact",
+      "o": "query performance"
+    },
+    {
+      "s": "integrating concepts",
+      "rel": "feasibility",
+      "o": "separate concept/subconcept nodes"
+    },
+    {
+      "s": "cross-domain hierarchies",
+      "rel": "complexity",
+      "o": "integrating concepts"
     }
   ]
 }

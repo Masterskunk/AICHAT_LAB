@@ -41,3 +41,13 @@ print("REPETITION-FIX TESTS PASS")
 assert a.parse_score("SCORE: 4 - varied, not repetitive")[0]==4
 assert a.parse_score("nothing numeric")[0] is None
 print("AUTO TESTS PASS: parse_score")
+
+assert a._fmt_edges([{"s":"x","rel":"enables","o":"y"}],5)=="x enables y"
+_orig=a.graph_recall
+a.graph_recall=lambda c:"x enables y"
+m=a.build_messages({"system":"S","memory":{}},[{"role":"user","content":"q"}])
+assert any("SHARED KNOWLEDGE" in x["content"] and "x enables y" in x["content"] for x in m)
+a.graph_recall=_orig
+m2=a.build_messages({"system":"S","memory":{},"graph_recall":{"enabled":False}},[{"role":"user","content":"q"}])
+assert not any("SHARED KNOWLEDGE" in x["content"] for x in m2)
+print("SHARED-GRAPH-RECALL TESTS PASS")
