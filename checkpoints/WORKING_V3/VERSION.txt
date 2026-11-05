@@ -1,0 +1,5 @@
+WORKING_V3 2026-11-05 03:21
+WORKING_V2 + knowledge graph (memory_graph: parse_triples/add_triples/recall/render_mermaid,
+  quality gate drops pronouns/fragments/speaker-names), Carlos report + live auto (graph+judge on the fly),
+  repetition fix (note dedup + do-not-repeat framing), lab.py 12 functions (incl. graph + evals), VERSION stamp.
+Ran live: 80 turns -> clean concept-to-concept graph + live judge scores. Restore: copy checkpoints/WORKING_V3/lab over lab/.

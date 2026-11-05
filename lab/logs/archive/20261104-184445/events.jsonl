@@ -1,0 +1,2 @@
+{"agent":"alice","event":"send","content":"hola"}
+{"agent":"bob","event":"reply","content":"hi"}

@@ -1,17 +1,31 @@
 """memory_graph: turn conversation facts into a knowledge graph.
 A TRIPLE is (subject, relation, object), written by the model as:  A | relation | B
 Nodes = concepts, edges = relations. Stored in logs/graph.json. Pure/testable; no Ollama here."""
-import json
+import json, re
 from pathlib import Path
 
+NAMES={"alice","bob","carlos"}
+_PRON={"here","there","this","that","it","they","we","you","i","he","she","them","these","those","one","something"}
+def _ok(term):
+    w=term.split()
+    return 2<=len(term)<=40 and 1<=len(w)<=5 and term.lower() not in _PRON
+def _term(x):
+    x=x.strip()
+    x=re.sub(r'^\s*\d+[\.\)]\s*','',x)
+    x=re.sub(r'^[-*\u2022]\s*','',x)
+    return x.strip().strip('"').strip("'").strip()
 def parse_triples(text):
     """Lenient parse of model output: keep only clean 'A | rel | B' lines."""
     out=[]
     for ln in (text or "").splitlines():
         parts=[p.strip() for p in ln.split("|")]
-        if len(parts)==3 and all(parts):
-            s,rel,o=parts
+        if len(parts)==3:
+            s,rel,o=_term(parts[0]),parts[1].strip(),_term(parts[2])
+            if not (s and rel and o): continue
             if (s.lower(),o.lower())==("subject","object"): continue   # skip a header line
+            if not (_ok(s) and _ok(o)): continue                       # drop pronouns & sentence-fragments
+            if s.lower() in NAMES or o.lower() in NAMES: continue       # ideas, not who-said-what
+            if any(("'" in t) or t.endswith((".","!","?")) for t in (s,o)): continue
             out.append((s,rel,o))
     return out
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """AI chat agent. No args = MENU. Deploy: listen | send "msg" | direct | caps."""
-import json, sys, time, traceback, urllib.request, urllib.error, importlib.util, platform
+import json, sys, time, re, traceback, urllib.request, urllib.error, importlib.util, platform
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 HERE=Path(__file__).resolve().parent; CFG_FILE=HERE/"config.json"
@@ -47,8 +47,11 @@ def mem_read(c):
     try: return mem_path(c).read_text().strip()
     except Exception: return ""
 def mem_write(c,note):
-    p=mem_path(c); p.parent.mkdir(parents=True,exist_ok=True)
-    with p.open("a") as f: f.write(note.strip()[:200]+"\n")
+    note=note.strip()[:200]; p=mem_path(c); p.parent.mkdir(parents=True,exist_ok=True)
+    try: existing=set(p.read_text().splitlines())
+    except Exception: existing=set()
+    if not note or note in existing: return
+    with p.open("a") as f: f.write(note+"\n")
 MODDIR=LOGS.parent/"modules"
 def load_modules(c):
     mods=[]; tools={}
@@ -74,7 +77,7 @@ def build_messages(c,history):
     msgs=[{"role":"system","content":build_system(c)}]; mem=c.get("memory") or {}
     if mem.get("enabled"):
         notes=mem_read(c)
-        if notes: msgs.append({"role":"system","content":"Your memory of the conversation so far (rely on this instead of re-reading everything):\n"+notes})
+        if notes: msgs.append({"role":"system","content":"POINTS YOU HAVE ALREADY MADE (do NOT repeat these - each turn add a NEW idea, question, example or disagreement that moves the conversation forward):\n"+notes})
         keep=int(mem.get("keep_turns",3))*2
         msgs+= history[-keep:] if keep>0 else []
     else:
@@ -201,13 +204,51 @@ def report():
     log("start",mode="report",model=c["model"])
     try:
         out=chat([{"role":"system","content":"You extract knowledge from a conversation as TRIPLES. "
-                   "Output ONLY lines in the form: subject | relation | object . Use short lowercase concepts, no extra text."},
+                   "Output ONLY lines as: subject | relation | object . Each subject and object is a SHORT noun phrase of 1-4 words - never a pronoun (here/this/it), never a full sentence, never the speaker names (alice/bob/carlos) - capture the IDEAS, not who said them. Lowercase. No numbering, no extra text."},
                   {"role":"user","content":"CONVERSATION:\n"+convo[-6000:]+"\n\nTriples:"}])
     except Exception as e: logerr("report",e); return
     gpath=str(LOGS/"graph.json"); triples=mg.parse_triples(out)
     added,nn,ne=mg.add_triples(triples,gpath); mg.render_mermaid(gpath,str(LOGS/"graph.md"))
     log("report",triples=len(triples),added=added,nodes=nn,edges=ne)
     print(f"graph: +{added} new, now {nn} nodes / {ne} edges -> logs/graph.json , picture in logs/graph.md")
+
+def parse_score(text):
+    m=re.search(r'([1-5])', text or "")
+    return (int(m.group(1)) if m else None), (text or "").strip()[:120]
+
+def auto():
+    """Carlos LIVE: every interval, update the graph AND judge the conversation (and optionally steer)."""
+    c=cfg(); interval=c.get("interval",20); need=c.get("min_before_act",4)
+    a=c.get("auto") or {}; do_g=a.get("graph",True); do_j=a.get("judge",True); do_s=a.get("steer",False)
+    spec=importlib.util.spec_from_file_location("mg",MODDIR/"memory_graph.py")
+    mg=importlib.util.module_from_spec(spec); spec.loader.exec_module(mg)
+    gpath=str(LOGS/"graph.json"); seen=0
+    log("start",mode="auto",model=c["model"],graph=do_g,judge=do_j,steer=do_s)
+    while True:
+        try:
+            if read_ctrl().get("state")=="stop": log("finished",reason="stopped"); return
+            rows=[json.loads(l) for l in (LOG.read_text().splitlines() if LOG.exists() else []) if l.strip()]
+            convo=[f'{r["agent"]}: {r["content"]}' for r in rows if r.get("event") in ("send","reply") and r.get("content")]
+            if len(convo)>seen and len(convo)>=need:
+                seen=len(convo); window="\n".join(convo[-20:])
+                if do_g:
+                    o=chat([{"role":"system","content":"Extract knowledge as lines: subject | relation | object . Short 1-4 word noun phrases, no pronouns, no full sentences, NOT the speaker names (alice/bob/carlos) - capture ideas not who said them, lowercase, nothing else."},
+                            {"role":"user","content":"CONVERSATION:\n"+window+"\n\nTriples:"}])
+                    tr=mg.parse_triples(o); added,nn,ne=mg.add_triples(tr,gpath); mg.render_mermaid(gpath,str(LOGS/"graph.md"))
+                    log("graph",added=added,nodes=nn,edges=ne)
+                if do_j:
+                    o=chat([{"role":"system","content":"You judge an AI conversation. Reply ONE line only: SCORE: <1-5> - <short reason about substance and whether they repeat>."},
+                            {"role":"user","content":"CONVERSATION:\n"+window}])
+                    sc,note=parse_score(o); log("judge",score=sc,note=note)
+                if do_s:
+                    o=chat([{"role":"system","content":build_system(c)},
+                            {"role":"user","content":"CONVERSATION:\n"+window+"\n\nDecision (CONTINUE | PAUSE | STOP | INJECT: <line>):"}])
+                    action,line=decide(o); log("direct",action=action,content=(line or ""))
+                    if action=="stop": write_ctrl({"state":"stop","inject":None}); log("finished",reason="carlos_stop"); return
+                    elif action=="pause": write_ctrl({**read_ctrl(),"state":"pause"})
+                    elif action=="inject" and line: write_ctrl({**read_ctrl(),"inject":line})
+        except Exception as e: logerr("auto",e)
+        time.sleep(interval)
 
 def menu():
     while True:
@@ -221,6 +262,7 @@ def menu():
   {ac}5{_R}) message    send one typed message
   {ac}6{_R}) direct     watch & steer the chat (Carlos)
   {ac}7{_R}) report     build the knowledge graph from the chat (Carlos)
+  {ac}8{_R}) auto       LIVE: judge + build graph on the fly (Carlos)
   {ac}0{_R}) quit       (or type q)
 {_DIM}Stop a running loop with Ctrl-C.{_R}""")
         ch=input("choose > ").strip().lower()
@@ -243,6 +285,10 @@ def menu():
                 try: direct()
                 except KeyboardInterrupt: print("stopped")
             elif ch=="7": report()
+            elif ch=="8":
+                print(f"{_DIM}auto (judge+graph) ... Ctrl-C to stop{_R}")
+                try: auto()
+                except KeyboardInterrupt: print("stopped")
             elif ch in ("0","q","quit","exit"): break
             else: print("pick a number")
         except Exception as e: logerr("menu",e)
@@ -254,6 +300,7 @@ if __name__=="__main__":
         elif len(a)>=2 and a[0]=="send": send(" ".join(a[1:]))
         elif a[0]=="direct": direct()
         elif a[0]=="report": report()
+        elif a[0]=="auto": auto()
         elif a[0]=="caps": caps()
         else: print(__doc__)
     except KeyboardInterrupt: print("\nbye")

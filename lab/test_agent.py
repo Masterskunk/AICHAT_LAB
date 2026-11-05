@@ -27,3 +27,17 @@ a.think=lambda h:"x"; a.post=lambda u,o:(calls.append(o) or {"from":"bob","conte
 a.write_ctrl({"state":"run","inject":None})
 assert a.decide("INJECT: ask about jazz")==("inject","ask about jazz")
 print("ALL ENGINE TESTS PASS: memory ctx (off=all,on=bounded), mem rw, log catcher+traceback, control, decide")
+
+import os
+mp=a.mem_path({"name":"dd"})
+open(mp,"w").close()
+a.mem_write({"name":"dd"},"said: hello"); a.mem_write({"name":"dd"},"said: hello")
+assert open(mp).read().count("said: hello")==1
+msgs=a.build_messages({"system":"S","name":"dd","memory":{"enabled":True,"keep_turns":2}},[{"role":"user","content":"x"}])
+assert any("do NOT repeat" in m["content"] for m in msgs)
+open(mp,"w").close()
+print("REPETITION-FIX TESTS PASS")
+
+assert a.parse_score("SCORE: 4 - varied, not repetitive")[0]==4
+assert a.parse_score("nothing numeric")[0] is None
+print("AUTO TESTS PASS: parse_score")

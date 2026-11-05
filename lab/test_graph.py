@@ -22,3 +22,12 @@ mg.render_mermaid(q,out)
 txt=open(out).read()
 assert "graph LR" in txt and "enables" in txt and '["a"]' in txt
 print("RENDER TEST PASS: render_mermaid -> mermaid graph")
+
+t2=mg.parse_triples('1. distributed hash tables | enable | fast lookups\n- "node failures" | cause | inconsistencies')
+assert ("distributed hash tables","enable","fast lookups") in t2, t2
+assert ("node failures","cause","inconsistencies") in t2, t2
+print("CLEANING TEST PASS")
+
+tr=mg.parse_triples("alice | thinks | objects\nbob | likes | alice's proposal\ngraphdb | is | standardized graph data structure")
+assert tr==[("graphdb","is","standardized graph data structure")], tr
+print("NAME/STANCE-GATE TEST PASS")

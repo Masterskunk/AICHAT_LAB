@@ -22,5 +22,10 @@
   "memory": {
     "enabled": false,
     "keep_turns": 3
+  },
+  "auto": {
+    "graph": true,
+    "judge": true,
+    "steer": false
   }
 }

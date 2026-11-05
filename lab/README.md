@@ -29,3 +29,9 @@ Console (lab root):  python3 lab.py
 ## Next ideas
 - memory_graph : facts as (subject,relation,object) triples in a graph (see IDEAS_GRAPH_MEMORY.md)
 - web search   : look up topics the agents don't know
+
+## Versions (checkpoints/)
+- VER_1 first 3-agent chat
+- WORKING_V1 + log catcher
+- WORKING_V2 + simple memory
+- WORKING_V3 + knowledge graph + live judge/auto + repetition fixes

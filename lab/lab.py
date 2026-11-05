@@ -177,6 +177,14 @@ def configure():
         _setdot(d,k,val); print(f"{k} = {val}")
     open(fp,"w").write(json.dumps(d,indent=2)); print(f"saved -> {name}")
 
+def evals_view():
+    rows=[json.loads(l) for l in _rows() if l.strip()]
+    js=[r for r in rows if r.get("event")=="judge"]; gs=[r for r in rows if r.get("event")=="graph"]
+    if not js and not gs: print("no live evaluations yet - run Carlos -> auto (agent menu 8)"); return
+    print(f"{_DIM}Carlos live judge scores:{_R}")
+    for r in js[-15:]: print(f'  {r.get("ts","")}  score={r.get("score")}  {_DIM}{(r.get("note") or "")[:70]}{_R}')
+    if gs: last=gs[-1]; print(f'{_DIM}graph growth -> {last.get("nodes")} nodes / {last.get("edges")} edges (see option 11){_R}')
+
 def graph_view():
     gp=LAB/"logs"/"graph.json"
     if not gp.exists(): print("no graph yet - run Carlos -> report (menu 7)"); return
@@ -211,6 +219,8 @@ def menu():
   8) control     pause / continue / stop / inject into a LIVE chat
   9) configure   edit ANY field of an agent (role, model, anchor, limits, memory)
  10) errors      show recent errors + tracebacks (debug)
+  11) graph       show the knowledge graph Carlos built
+  12) evals       Carlos's live judge scores + graph growth
   0) quit        (or type q)""")
         ch=input("choose > ").strip().lower()
         if ch=="1": view(False)
@@ -224,6 +234,7 @@ def menu():
         elif ch=="9": configure()
         elif ch=="10": errors_view()
         elif ch=="11": graph_view()
+        elif ch=="12": evals_view()
         elif ch in ("0","q","quit","exit"): break
         else: print("pick a number")
 if __name__=="__main__":

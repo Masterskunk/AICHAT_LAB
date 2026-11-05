@@ -1,0 +1,259 @@
+{
+  "nodes": [
+    "Suggestion Insights",
+    "abstract nodes",
+    "adjustable edge weights",
+    "ai memory",
+    "as feedback loop",
+    "as interconnected nodes and edges",
+    "between ideas",
+    "color-coded nodes",
+    "complex relationships",
+    "complex relationships poorly",
+    "concept of ontologies",
+    "data",
+    "domain-specific categories",
+    "dynamic graph view",
+    "edges",
+    "embedded visualizations",
+    "enhance user understanding",
+    "explanations",
+    "for each subcategory",
+    "for improving memory",
+    "force-directed graph visualizations",
+    "general semantic categories",
+    "graph database",
+    "graph databases",
+    "graph structure",
+    "graphs",
+    "great approach",
+    "guidance",
+    "guide",
+    "identify preferred areas",
+    "individual concepts",
+    "interactive graph visualization",
+    "interactive graphs",
+    "interconnected nodes",
+    "interconnected nodes and edges",
+    "knowledge",
+    "knowledge base",
+    "knowledge graph",
+    "knowledge representation",
+    "less effective for complex relationships",
+    "multiple synonyms",
+    "narrative perspective",
+    "node insights",
+    "node relationships",
+    "nodes",
+    "not know",
+    "one domain",
+    "ontologies",
+    "ontology",
+    "patterns",
+    "relationships",
+    "relevant information",
+    "semantic connections",
+    "separate nodes",
+    "system",
+    "traditional tables",
+    "transparency",
+    "type of database",
+    "user behavior",
+    "user confidence",
+    "users",
+    "visualization data",
+    "visualizations"
+  ],
+  "edges": [
+    {
+      "s": "graphs",
+      "rel": "improve",
+      "o": "ai memory"
+    },
+    {
+      "s": "graph databases",
+      "rel": "store",
+      "o": "interconnected nodes"
+    },
+    {
+      "s": "complex relationships",
+      "rel": "represent",
+      "o": "graph structure"
+    },
+    {
+      "s": "knowledge",
+      "rel": "can be represented",
+      "o": "graphs"
+    },
+    {
+      "s": "relationships",
+      "rel": "are complex",
+      "o": "between ideas"
+    },
+    {
+      "s": "data",
+      "rel": "is stored",
+      "o": "as interconnected nodes and edges"
+    },
+    {
+      "s": "graph databases",
+      "rel": "are useful",
+      "o": "for improving memory"
+    },
+    {
+      "s": "traditional tables",
+      "rel": "represent",
+      "o": "complex relationships"
+    },
+    {
+      "s": "knowledge base",
+      "rel": "organize",
+      "o": "graph structure"
+    },
+    {
+      "s": "nodes",
+      "rel": "represent",
+      "o": "individual concepts"
+    },
+    {
+      "s": "edges",
+      "rel": "represent",
+      "o": "semantic connections"
+    },
+    {
+      "s": "graph databases",
+      "rel": "store",
+      "o": "interconnected nodes and edges"
+    },
+    {
+      "s": "traditional tables",
+      "rel": "represent",
+      "o": "complex relationships poorly"
+    },
+    {
+      "s": "graph databases",
+      "rel": "are",
+      "o": "type of database"
+    },
+    {
+      "s": "traditional tables",
+      "rel": "are",
+      "o": "less effective for complex relationships"
+    },
+    {
+      "s": "ontology",
+      "rel": "is similar to",
+      "o": "concept of ontologies"
+    },
+    {
+      "s": "abstract nodes",
+      "rel": "represent",
+      "o": "general semantic categories"
+    },
+    {
+      "s": "knowledge representation",
+      "rel": "uses",
+      "o": "ontologies"
+    },
+    {
+      "s": "graph database",
+      "rel": "use",
+      "o": "abstract nodes"
+    },
+    {
+      "s": "multiple synonyms",
+      "rel": "exist within",
+      "o": "one domain"
+    },
+    {
+      "s": "separate nodes",
+      "rel": "are created",
+      "o": "for each subcategory"
+    },
+    {
+      "s": "users",
+      "rel": "need",
+      "o": "guidance"
+    },
+    {
+      "s": "knowledge graph",
+      "rel": "provide",
+      "o": "relevant information"
+    },
+    {
+      "s": "users",
+      "rel": "may",
+      "o": "not know"
+    },
+    {
+      "s": "system",
+      "rel": "help",
+      "o": "guide"
+    },
+    {
+      "s": "users",
+      "rel": "start",
+      "o": "narrative perspective"
+    },
+    {
+      "s": "knowledge graph",
+      "rel": "provide",
+      "o": "explanations"
+    },
+    {
+      "s": "transparency",
+      "rel": "foster",
+      "o": "user confidence"
+    },
+    {
+      "s": "user behavior",
+      "rel": "generate",
+      "o": "patterns"
+    },
+    {
+      "s": "Suggestion Insights",
+      "rel": "display",
+      "o": "visualizations"
+    },
+    {
+      "s": "interactive graphs",
+      "rel": "can be used to",
+      "o": "enhance user understanding"
+    },
+    {
+      "s": "node relationships",
+      "rel": "can be visualized as",
+      "o": "force-directed graph visualizations"
+    },
+    {
+      "s": "user behavior",
+      "rel": "can be analyzed to",
+      "o": "identify preferred areas"
+    },
+    {
+      "s": "node insights",
+      "rel": "has",
+      "o": "dynamic graph view"
+    },
+    {
+      "s": "embedded visualizations",
+      "rel": "can have",
+      "o": "adjustable edge weights"
+    },
+    {
+      "s": "color-coded nodes",
+      "rel": "signify",
+      "o": "domain-specific categories"
+    },
+    {
+      "s": "interactive graph visualization",
+      "rel": "is",
+      "o": "great approach"
+    },
+    {
+      "s": "visualization data",
+      "rel": "can be used",
+      "o": "as feedback loop"
+    }
+  ]
+}
