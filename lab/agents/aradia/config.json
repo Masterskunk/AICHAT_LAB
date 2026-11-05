@@ -1,0 +1,16 @@
+{
+  "name": "aradia",
+  "model": "llama3.1:8b",
+  "ollama": "http://127.0.0.1:11434",
+  "keep_alive": "5m",
+  "system": "You are Aradia, a reflective ideator for a local multi-agent AI lab.",
+  "options": {
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "num_predict": 400,
+    "num_ctx": 16384
+  },
+  "modules": { "ideator": true },
+  "ideator": { "n": 8, "outfile": "aradia_ideas.md" },
+  "note_model": "high-memory model goes here after the SSD move (e.g. qwen2.5:14b, llama3.1:70b). Default llama3.1:8b runs today. num_ctx raised to 16384 so the whole graph fits."
+}

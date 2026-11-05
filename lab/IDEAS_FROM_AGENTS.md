@@ -69,3 +69,70 @@ How it maps to the lab (all config-driven, same engine):
 
 Ties together: shared graph memory (#1), A2A messaging, portability (Mac->Pi->Windows),
 and the Terraform/DB deployment track. A clean capstone for the lab.
+
+## ================================================================
+## BATCH 2 - mined from the 2026-11-04 run (shared-graph recall ON)
+## Theme: GRAPH QUALITY & SMART RETRIEVAL (distinct from Batch-1 trust/consensus).
+## With recall ON the agents stopped re-explaining basics and instead designed
+## how to make the shared graph itself smarter. Ordered easiest-first; each = a
+## module + config flag, offline-testable, mechanism-in-core/policy-in-config.
+## ================================================================
+
+### B2-1. WEIGHTED EDGES + recall top-k by weight  (EASY, high value)
+Give every edge a weight; recall injects the k HEAVIEST edges, not the first k.
+Weight = f(times the fact recurred, recency, Carlos judge score). 
+Why: they proposed "score edges by frequency of traversal, relevance, and feedback;
+recalculate periodically." Directly upgrades our current first-k graph_recall.
+Flag: graph_recall.rank = "weight" | "recent" | "first".
+
+### B2-2. PROVENANCE on every triple  (EASY, pure code)
+Store who introduced it + turn + timestamp: {s,rel,o, by:"alice", turn:7, ts:...}.
+Why: their "capture provenance/source of each node and edge." Lets us SEE who taught
+whom - and is the raw data the #8 Windows scholar needs to learn "from" the others.
+
+### B2-3. CONFIDENCE score per fact + low-confidence filter  (EASY)
+Each fact carries a confidence (starts low, rises when a second agent restates it,
+or from Carlos's judge score). Recall can skip facts below a threshold.
+Why: their "confidence level to filter noise when aggregating." 
+
+### B2-4. DIVERSITY / signal-to-noise weighting  (MEDIUM, the anti-echo-chamber)
+Weight a fact by how many DISTINCT agents independently stated it, not raw count -
+so two agents parroting each other don't inflate it. 
+Why: their "signal-to-noise ratio + diversity index to avoid echo chambers." 
+*** This is the real cure for the soft repetition still visible in run 1, AND it
+becomes essential the moment the Windows scholar makes it 3-4 voices. High priority.
+
+### B2-5. POPULARITY / node mention-count + freshness decay  (EASY)
+Count how often each node is referenced; let old untouched facts decay. Recall favours
+popular-and-fresh. Why: their "popularity score + last-updated timestamp + volatility."
+
+### B2-6. CARLOS AS GRAPH AUDITOR (self-monitoring meta-agent)  (MEDIUM)
+Extend Carlos (already judge) to periodically audit the graph: flag likely-bad edges,
+say WHY, and propose pruning. Why: their "self-monitoring meta-AI that reviews its own
+inferences and explains the flags." We already have the judge loop - this reuses it.
+
+### B2-7. HUMAN-IN-THE-LOOP edge review in lab.py  (MEDIUM, ties to menu 11)
+A console mode where Carlos (you) approve/reject proposed edges; accepted ones gain
+confidence, rejected ones are dropped/penalised. Why: their "active-learning loop with
+a task-agnostic human-validation interface."
+
+### B2-8. GRAPH ANALYTICS module: community detection + centrality  (MEDIUM/HARD)
+A module that runs modularity/community detection and betweenness/eigenvector centrality
+on graph.json. "Bridge" (high-centrality) facts get recall priority; communities = auto
+topic clusters. Why: their "community detection + centrality on the graph to find hubs
+and emerging clusters." Pure stdlib is doable for small graphs; networkx if allowed.
+
+### B2-9. DOMAIN TAGS / "sentinel" subgraphs  (MEDIUM)
+Tag each edge with a topic/domain; render graph.md grouped by domain; let recall focus a
+chosen domain. Why: their "sentinel domains / subgraphs monitored for emerging signals."
+
+### B2-10. EXPOSE THE GRAPH VIA AN API for external agents  (= MISSION #8)
+Serve graph.json (or a query endpoint) over HTTP so another LAN agent can read/query it.
+Why: they explicitly proposed "expose our graph via an API so other AIs query the shared
+space - a conversational web." THIS IS EXACTLY the Windows-scholar mission. The agents
+independently re-derived our own next milestone -> strong signal it's the right build.
+
+### NOTE ON METHOD
+These are "understand = facts in context (retrieval)", not weight training - same stance
+as mission #8. B2-1/2/3 are tiny upgrades to the EXISTING graph_recall + Carlos extractor;
+B2-4 + B2-10 are what make a multi-machine swarm actually work without echo-chambers.
