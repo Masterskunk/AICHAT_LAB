@@ -1,6 +1,6 @@
 # AICHAT_LAB — a local multi-agent AI lab that studies its own memory
 
-**Four small local LLMs on a Mac, no cloud keys.** Two agents (**Alice**, **Bob**) hold a
+**Small local LLMs across a Mac, a Windows PC and a Raspberry Pi — no cloud keys.** Two agents (**Alice**, **Bob**) hold a
 conversation; a third (**Carlos**) directs them and distills what they say into a shared
 **knowledge graph**; a fourth (**Aradia**) reads that graph and invents new ideas to improve
 the lab. Everything runs on [Ollama](https://ollama.com), is menu-driven, config-driven, and
@@ -24,7 +24,8 @@ cooperating models.
 | **Bob** | chat peer (answers) | yes | shared graph (recall) | transcript, its memory |
 | **Carlos** | director + judge + graph builder | no | transcript | `graph.json`, scores, control |
 | **Aradia** | reflective *ideator* | no | shared graph | `aradia_ideas.md` |
-| *Scholar (planned)* | remote graph-reader on another LAN machine (Windows/RTX) | no | shared graph over HTTP | its own notes |
+| **Danaris** | remote ideator on Windows (RTX 4070, 8 GB) | no | shared graph over LAN (file) | `danaris_ideas.md` |
+| **Colossus** | remote ideator on a Raspberry Pi 5 (16 GB) | no | shared graph via MCP or chat request | `colossus_ideas.md` |
 
 ```mermaid
 graph LR
@@ -36,7 +37,8 @@ graph LR
   G -.->|recall each turn| B
   AR["Aradia (ideator)"] -.->|reads| G
   AR -->|new concepts| I["aradia_ideas.md"]
-  S["Scholar (planned, remote)"] -.->|reads over LAN| G
+  D["Danaris (Windows)"] -.->|reads file over LAN| G
+  CO["Colossus (Pi)"] -.->|MCP / chat request| G
 ```
 
 ## The two core ideas

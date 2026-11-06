@@ -1,0 +1,15 @@
+{
+  "name": "colossus",
+  "model": "llama3.2:3b",
+  "ollama": "http://127.0.0.1:11434",
+  "keep_alive": "5m",
+  "color": "\u001b[1;38;5;39m",
+  "system": "You are Colossus, a reflective ideator on a Raspberry Pi for a local multi-agent AI lab.",
+  "options": { "temperature": 0.8, "top_p": 0.9, "num_predict": 400, "num_ctx": 4096 },
+  "modules": { "ideator": true },
+  "ideator": { "n": 8, "outfile": "colossus_ideas.md" },
+  "request_via": "mcp",
+  "mcp_url": "http://MAC-LAN-IP:8800/mcp",
+  "chat_peer": "http://MAC-LAN-IP:8800/ask",
+  "note": "RASPBERRY PI 5 16GB, CPU-only: llama3.2:3b is fast enough; num_ctx 4096. REQUESTS the graph instead of reading a file: request_via=mcp (JSON-RPC tools/call) or switch to chat (menu 5). Set MAC-LAN-IP (Mac: ipconfig getifaddr en0); keep tools/graph_server.py running on the Mac."
+}

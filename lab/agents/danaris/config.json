@@ -1,0 +1,13 @@
+{
+  "name": "danaris",
+  "model": "llama3.1:8b",
+  "ollama": "http://127.0.0.1:11434",
+  "keep_alive": "5m",
+  "color": "\u001b[1;38;5;45m",
+  "system": "You are Danaris, a remote reflective ideator for a local multi-agent AI lab.",
+  "options": { "temperature": 0.8, "top_p": 0.9, "num_predict": 400, "num_ctx": 8192 },
+  "modules": { "ideator": true },
+  "ideator": { "n": 8, "outfile": "danaris_ideas.md" },
+  "graph_url": "http://MAC-LAN-IP:8800/graph.json",
+  "note": "WINDOWS, RTX 4070 8GB VRAM: llama3.1:8b fits; num_ctx 8192. Reads the graph.json FILE over the LAN. Set graph_url to the Mac IP (Mac: ipconfig getifaddr en0); keep tools/graph_server.py running on the Mac."
+}
